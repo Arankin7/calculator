@@ -1,47 +1,12 @@
-// number button eventlisteners
+// number button eventlistener
+// 
 
-$("#numOne").click( (e) =>{
+$(".numButton").click(function(){
     console.log('1');
-})
-
-$("#numTwo").click( (e) =>{
-    console.log('2');
-});
-
-$("#numThree").click( (e) =>{
-    console.log('3');
-});
-
-$("#numFour").click( (e) =>{
-    console.log('4');
-});
-
-$("#numFive").click( (e) =>{
-    console.log('5');
-});
-
-$("#numSix").click( (e) =>{
-    console.log('6');
-});
-
-$("#numSeven").click( (e) =>{
-    console.log('7');
-});
-
-$("#numEight").click( (e) =>{
-    console.log('8');
-});
-
-$("#numNine").click( (e) =>{
-    console.log('9');
-});
-
-$("#numZero").click( (e) =>{
-    console.log('0');
-});
-
-$("#decimal").click( (e) =>{
-    console.log('Decimal');
+    var number = $(this).data('number');
+    $("#numInput").val(function() {
+        return this.value + number;
+    });
 });
 
 // arithmetic listeners
@@ -68,8 +33,12 @@ $("#calculate").click( (e) => {
 
 // Clear Eventlistener
 
-$("#clear").click( (e) => {
+$("#clear").click(function() {
     console.log('Clear');
+    var number = $(this).data('number');
+    $("#numInput").val(function() {
+        return number;
+    })
 });
 
 
