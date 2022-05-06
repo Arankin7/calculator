@@ -1,10 +1,17 @@
 // Empty array for variables
 var numVar = [];
 
-var clearInput = function(){
+const clearInput = function(){
     $("#numInput").val(function(){
         return ""; 
     });
+};
+
+const clearClass = function(){
+    $("#calculate").removeClass("add");
+    $("#calculate").removeClass("subtract");
+    $("#calculate").removeClass("multiply");
+    $("#calculate").removeClass("divide");
 };
 
 // number button eventlistener
@@ -22,39 +29,89 @@ $(".operator").click( function() {
     var action = $(this).data('action');
     console.log(action);
 
+    switch(action){
+        case 'addition':
+            // console.log("Adding Stuff");
+            $("#calculate").addClass("add");
+            break;
+        case 'subtract':
+            console.log("subtracting stuff");
+            $("#calculate").addClass("subtract");
+            break;
+        case 'multiply':
+            console.log("multiplying stuff");
+            $("#calculate").addClass("multiply");
+            break;
+        case 'divide':
+            console.log("dividing Stuff");
+            $("#calculate").addClass("divide");
+            break;
+    }
+
     // creates variable from number in Input field
     var firstNum = parseFloat($("#numInput").val());
-    // console.log(firstNum);
-
     numVar.push(firstNum);
 
-    console.log(numVar);
-
+    // console.log(numVar);
     clearInput();
 });
 
 $("#calculate").click( calculate = function() {
-  console.log('Calculating');
+//   console.log('Calculating');
 
 //   Adds the numInput value to the array
   var lastNum = parseFloat($("#numInput").val());
   numVar.push(lastNum);
   console.log(numVar);
 
-  const answer = numVar.reduce(getSum, 0);
+//   const answerEl = $("#numInput");
 
-  function getSum(total, num){
-      return (total + num);
+//   Checks classes on Calculate button then does the proper calculations
+  if($("#calculate").hasClass("add")){
+    const answer = numVar.reduce(getSum, 0);
+
+    function getSum(total, num){
+        return (total + num);
+    }
+    $("#numInput").val(function(){
+        return answer; 
+    }); 
   }
-  console.log(answer);
-  
-//   numVar.reduce(subArray);
-//   numVar.reduce(multArray);
-//   numVar.reduce(divideArray);
+  else if($("#calculate").hasClass("subtract")){
+      const answer = numVar.reduce(getSub);
 
-clearInput();
+      function getSub(total, num){
+          return(total - num);
+      }
+      $("#numInput").val(function(){
+        return answer; 
+    });
+    }
+  else if($("#calculate").hasClass("multiply")){
+    const answer = numVar.reduce(getProduct);
 
-  
+    function getProduct(total, num){
+        return(total * num);
+    };
+    $("#numInput").val(function(){
+        return answer; 
+    });
+    }
+
+    else if($("#calculate").hasClass("divide")){
+        const answer = numVar.reduce(getQuotient);
+
+        function getQuotient(total, num){
+            return(total / num);
+        };
+        $("#numInput").val(function(){
+            return answer; 
+        });
+    }
+
+    // clearInput();
+    clearClass();
+    numVar = [];  
 });
 
 // Clear Eventlistener
@@ -62,10 +119,8 @@ clearInput();
 $("#clear").click(function() {
     console.log('Clear');
     clearInput();
-
+    clearClass();
     numVar = [];
-
-    // need to clear the array numVar
 });
 
 
