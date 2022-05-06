@@ -1,8 +1,14 @@
-// number button eventlistener
-// 
+// Empty array for variables
+var numVar = [];
 
+var clearInput = function(){
+    $("#numInput").val(function(){
+        return ""; 
+    });
+};
+
+// number button eventlistener
 $(".numButton").click(function(){
-    console.log('1');
     var number = $(this).data('number');
     $("#numInput").val(function() {
         return this.value + number;
@@ -11,34 +17,55 @@ $(".numButton").click(function(){
 
 // arithmetic listeners
 
-$("#addition").click( (e) => {
-    console.log('Adding');
+$(".operator").click( function() {
+    // grabs the operator action from the dataset
+    var action = $(this).data('action');
+    console.log(action);
+
+    // creates variable from number in Input field
+    var firstNum = parseFloat($("#numInput").val());
+    // console.log(firstNum);
+
+    numVar.push(firstNum);
+
+    console.log(numVar);
+
+    clearInput();
 });
 
-$("#subtract").click( (e) => {
-    console.log('Subtracting');
-});
+$("#calculate").click( calculate = function() {
+  console.log('Calculating');
 
-$("#multiply").click( (e) => {
-    console.log('Multiplying');
-});
+//   Adds the numInput value to the array
+  var lastNum = parseFloat($("#numInput").val());
+  numVar.push(lastNum);
+  console.log(numVar);
 
-$("#divide").click( (e) => {
-    console.log('Dividing');
-});
+  const answer = numVar.reduce(getSum, 0);
 
-$("#calculate").click( (e) => {
-    console.log('Calculating');
+  function getSum(total, num){
+      return (total + num);
+  }
+  console.log(answer);
+  
+//   numVar.reduce(subArray);
+//   numVar.reduce(multArray);
+//   numVar.reduce(divideArray);
+
+clearInput();
+
+  
 });
 
 // Clear Eventlistener
 
 $("#clear").click(function() {
     console.log('Clear');
-    var number = $(this).data('number');
-    $("#numInput").val(function() {
-        return number;
-    })
+    clearInput();
+
+    numVar = [];
+
+    // need to clear the array numVar
 });
 
 
