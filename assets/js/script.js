@@ -1,5 +1,6 @@
 // Empty array for variables
 var numVar = [];
+const placeholder = "0123456789"
 
 const clearInput = function(){
     $("#numInput").val(function(){
@@ -27,7 +28,9 @@ $(".numButton").click(function(){
 $(".operator").click( function() {
     // grabs the operator action from the dataset
     var action = $(this).data('action');
-    console.log(action);
+    // console.log(action);
+
+    
 
     switch(action){
         case 'addition':
@@ -35,29 +38,36 @@ $(".operator").click( function() {
             $("#calculate").addClass("add");
             break;
         case 'subtract':
-            console.log("subtracting stuff");
+            // console.log("subtracting stuff");
             $("#calculate").addClass("subtract");
             break;
         case 'multiply':
-            console.log("multiplying stuff");
+            // console.log("multiplying stuff");
             $("#calculate").addClass("multiply");
             break;
         case 'divide':
-            console.log("dividing Stuff");
+            // console.log("dividing Stuff");
             $("#calculate").addClass("divide");
             break;
     }
 
     // creates variable from number in Input field
     var firstNum = parseFloat($("#numInput").val());
+
+    if(!firstNum){
+        var firstNum = parseFloat($("#numInput").attr('placeholder'));
+        // firstNum = histNum;
+        console.log(firstNum);
+    }
+
     numVar.push(firstNum);
 
-    // console.log(numVar);
     clearInput();
+
+    $("#numInput").attr('placeholder', firstNum);  
 });
 
 $("#calculate").click( calculate = function() {
-//   console.log('Calculating');
 
 //   Adds the numInput value to the array
   var lastNum = parseFloat($("#numInput").val());
@@ -75,7 +85,9 @@ $("#calculate").click( calculate = function() {
     }
     $("#numInput").val(function(){
         return answer; 
-    }); 
+    });
+    clearInput();
+    $("#numInput").attr('placeholder', answer); 
   }
   else if($("#calculate").hasClass("subtract")){
       const answer = numVar.reduce(getSub);
@@ -86,6 +98,8 @@ $("#calculate").click( calculate = function() {
       $("#numInput").val(function(){
         return answer; 
     });
+    clearInput();
+    $("#numInput").attr('placeholder', answer);
     }
   else if($("#calculate").hasClass("multiply")){
     const answer = numVar.reduce(getProduct);
@@ -96,6 +110,8 @@ $("#calculate").click( calculate = function() {
     $("#numInput").val(function(){
         return answer; 
     });
+    clearInput();
+    $("#numInput").attr('placeholder', answer);
     }
 
     else if($("#calculate").hasClass("divide")){
@@ -107,9 +123,10 @@ $("#calculate").click( calculate = function() {
         $("#numInput").val(function(){
             return answer; 
         });
+        clearInput();
+        $("#numInput").attr('placeholder', answer);
     }
 
-    // clearInput();
     clearClass();
     numVar = [];  
 });
@@ -119,6 +136,7 @@ $("#calculate").click( calculate = function() {
 $("#clear").click(function() {
     console.log('Clear');
     clearInput();
+    $("#numInput").attr('placeholder', placeholder);
     clearClass();
     numVar = [];
 });
